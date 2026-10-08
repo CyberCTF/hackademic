@@ -17,7 +17,7 @@ install wizard run at first start.
 
 ```bash
 isoloom generate
-isoloom up docker
+isoloom run docker
 ```
 
 Then open http://localhost:8028/ and log in as `admin` / `hackademic`. Students register from the
