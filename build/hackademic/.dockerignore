@@ -1,0 +1,6 @@
+app/**/.git
+app/config.inc.php
+app/view/compiled_view/
+app/pages/test/
+app/test
+Dockerfile

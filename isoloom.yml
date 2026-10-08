@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# OWASP Hackademic Challenges (by the Hackademic contributors) as an Isoloom spec: the upstream
+# PHP source, vendored unchanged in build/hackademic/app/, served by a PHP 5.6 / Apache image we
+# wrote (upstream has no Dockerfile), and a MariaDB machine. The image runs Hackademic's install
+# wizard at first start. `isoloom generate`, then `isoloom up docker`.
+version: 1
+name: hackademic
+
+networks:
+  lab: { cidr: 10.60.28.0/24, internet: false }
+
+machines:
+  db:
+    networks: { lab: 20 }
+    services: [{ port: 3306, name: mariadb }]
+    resources: { cpus: 1, memory_mb: 512 }
+    volumes: { data: /var/lib/mysql }
+    docker:
+      build: build/db
+
+  hackademic:
+    networks: { lab: 10 }
+    services: [{ port: 80, name: web, http: true, publish: 8028 }]
+    resources: { cpus: 1, memory_mb: 512 }
+    depends_on: [db]
+    docker:
+      build: build/hackademic
+
+checks:
+  - name: Hackademic answers
+    http: http://hackademic/
+    wait: 180
+  - name: admin / hackademic logs in (the wizard installed it)
+    script: checks/login.sh
+    wait: 120
+  - name: the first challenge is served
+    http: http://hackademic/challenges/ch001/index.php
+
+message: |
+  Hackademic answers at http://localhost:{{ machines.hackademic.services.0.publish }}/. It is
+  already installed: log in as admin / hackademic, then open the challenges (or register a
+  student account and add it to a class from the admin dashboard).

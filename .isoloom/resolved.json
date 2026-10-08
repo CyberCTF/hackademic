@@ -1,0 +1,224 @@
+{
+  "generated_by_isoloom": "from isoloom.yml; don't edit: change the spec and run `isoloom generate` (`isoloom check` fails when this file is out of date)",
+  "resolved_version": 1,
+  "name": "hackademic",
+  "instance": null,
+  "inputs": [],
+  "networks": {
+    "lab": {
+      "cidr": "10.60.28.0/24",
+      "docker_cidr": "10.60.28.0/24",
+      "internet": false,
+      "gateway": null,
+      "gateway_address": "10.60.28.1",
+      "router": null,
+      "controller": "10.60.28.253"
+    }
+  },
+  "reach": [],
+  "machines": {
+    "db": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.28.20"
+      },
+      "docker_addresses": {
+        "lab": "10.60.28.20"
+      },
+      "services": [
+        {
+          "port": 3306,
+          "name": "mariadb",
+          "http": false,
+          "publish": null
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {
+        "data": "/var/lib/mysql"
+      },
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 512,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": true
+    },
+    "hackademic": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.28.10"
+      },
+      "docker_addresses": {
+        "lab": "10.60.28.10"
+      },
+      "services": [
+        {
+          "port": 80,
+          "name": "web",
+          "http": true,
+          "publish": 8028
+        }
+      ],
+      "depends_on": [
+        "db"
+      ],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 512,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": true
+    }
+  },
+  "start_order": [
+    "db",
+    "hackademic"
+  ],
+  "clones": {},
+  "tools": {},
+  "groups": {},
+  "router": null,
+  "controller": {
+    "addresses": {
+      "lab": "10.60.28.253"
+    }
+  },
+  "published": [
+    {
+      "machine": "hackademic",
+      "port": 80,
+      "host_port": 8028
+    }
+  ],
+  "targets": {
+    "possible": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "generated": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "refused": {},
+    "not_possible": {
+      "hybrid": "only when some machines are containers and others are VMs",
+      "vagrant": "needs `vm:` on db, hackademic",
+      "proxmox": "needs `vm:` on db, hackademic",
+      "cloud-vm": "needs `vm:` on db, hackademic",
+      "external": "needs `external:` on db, hackademic"
+    }
+  },
+  "checks": {
+    "default_position": "networks",
+    "positions": [
+      {
+        "position": "networks",
+        "machine": null,
+        "runner": "isoloom-check",
+        "checks": [
+          {
+            "name": "Hackademic answers",
+            "derived": false,
+            "kind": "http",
+            "target": "http://hackademic/",
+            "expect": "200",
+            "wait": 180
+          },
+          {
+            "name": "admin / hackademic logs in (the wizard installed it)",
+            "derived": false,
+            "kind": "script",
+            "target": "checks/login.sh",
+            "expect": "",
+            "wait": 120
+          },
+          {
+            "name": "the first challenge is served",
+            "derived": false,
+            "kind": "http",
+            "target": "http://hackademic/challenges/ch001/index.php",
+            "expect": "200",
+            "wait": 30
+          }
+        ]
+      },
+      {
+        "position": "db",
+        "machine": "db",
+        "runner": "isoloom-check-db",
+        "checks": [
+          {
+            "name": "hackademic:80 from db",
+            "derived": true,
+            "kind": "http",
+            "target": "http://10.60.28.10:80/",
+            "expect": "any",
+            "wait": 30
+          },
+          {
+            "name": "no internet from db",
+            "derived": true,
+            "kind": "http",
+            "target": "http://1.1.1.1/",
+            "expect": "blocked",
+            "wait": 0
+          }
+        ]
+      },
+      {
+        "position": "hackademic",
+        "machine": "hackademic",
+        "runner": "isoloom-check-hackademic",
+        "checks": [
+          {
+            "name": "db:3306 from hackademic",
+            "derived": true,
+            "kind": "tcp",
+            "target": "10.60.28.20:3306",
+            "expect": "open",
+            "wait": 30
+          },
+          {
+            "name": "no internet from hackademic",
+            "derived": true,
+            "kind": "http",
+            "target": "http://1.1.1.1/",
+            "expect": "blocked",
+            "wait": 0
+          }
+        ]
+      }
+    ]
+  },
+  "message": "Hackademic answers at http://localhost:8028/. It is\nalready installed: log in as admin / hackademic, then open the challenges (or register a\nstudent account and add it to a class from the admin dashboard).\n"
+}
