@@ -135,7 +135,8 @@
       "vagrant": "needs `vm:` on db, hackademic",
       "proxmox": "needs `vm:` on db, hackademic",
       "cloud-vm": "needs `vm:` on db, hackademic",
-      "external": "needs `external:` on db, hackademic"
+      "external": "needs `external:` on db, hackademic",
+      "cloud-services": "left out by `targets:`"
     }
   },
   "checks": {
