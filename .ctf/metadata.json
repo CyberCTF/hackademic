@@ -4,6 +4,5 @@
   "question": "Solve the Hackademic challenges, starting with challenge 1.",
   "category": "WEB",
   "difficulty": 2,
-  "evidence_kind": "SECRET",
-  "capabilities": ["cross-site-scripting", "sql-injection", "http-header-manipulation", "broken-access-control", "crypto-analysis"]
+  "evidence_kind": "SECRET"
 }
