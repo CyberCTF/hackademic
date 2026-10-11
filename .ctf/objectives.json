@@ -1,0 +1,203 @@
+{
+  "objectives": [
+    {
+      "key": "client-side-check",
+      "title": "Challenge 2: where the password is checked",
+      "prompt": "Solve Hackademic Challenge 2. Where is the password actually checked: on the server or in the client? (one word)",
+      "check": {
+        "answer": [
+          "client",
+          "client side",
+          "client-side",
+          "browser",
+          "the browser",
+          "javascript",
+          "in the browser"
+        ]
+      },
+      "hints": [
+        "Read the page source: the form's button calls a script before anything reaches the server."
+      ]
+    },
+    {
+      "key": "reflected-xss",
+      "title": "Challenge 3: name the weakness",
+      "prompt": "Solve Hackademic Challenge 3. Which vulnerability class does it ask you to demonstrate?",
+      "check": {
+        "answer": [
+          "xss",
+          "cross-site scripting",
+          "cross site scripting",
+          "reflected xss"
+        ]
+      },
+      "hints": [
+        "The page reflects what you submit back into its HTML."
+      ]
+    },
+    {
+      "key": "header-check",
+      "title": "Challenge 5: the checked header",
+      "prompt": "Solve Hackademic Challenge 5. Which HTTP request header decides whether you get in? (header name)",
+      "check": {
+        "answer": [
+          "user-agent",
+          "user agent",
+          "useragent"
+        ]
+      },
+      "hints": [
+        "The page only welcomes a particular browser: what tells a server which browser you use?"
+      ]
+    },
+    {
+      "key": "obfuscated-script",
+      "title": "Challenge 6: how the page hides its logic",
+      "prompt": "Solve Hackademic Challenge 6. Which technique hides the page's real content from a quick look at the source? (name the technique)",
+      "check": {
+        "answer": [
+          "obfuscation",
+          "javascript obfuscation",
+          "url encoding",
+          "percent encoding",
+          "encoding",
+          "unescape"
+        ]
+      },
+      "hints": [
+        "The source writes the page with a single script call over an unreadable string: decode it rather than reading it."
+      ]
+    },
+    {
+      "key": "hidden-field",
+      "title": "Challenge 10: the trusted field",
+      "prompt": "Solve Hackademic Challenge 10. Which hidden form field does the server trust to decide whether you are let in? (field name)",
+      "check": {
+        "answer": [
+          "letmein"
+        ]
+      },
+      "hints": [
+        "Look at every field the form sends, including the ones you cannot see on the page."
+      ]
+    },
+    {
+      "key": "fun-with-frequencies",
+      "title": "Fun with Frequencies: the technique",
+      "prompt": "Solve the Fun with Frequencies challenge. Which classical cryptanalysis technique breaks its substitution cipher?",
+      "check": {
+        "answer": [
+          "frequency analysis",
+          "letter frequency analysis",
+          "frequency"
+        ]
+      },
+      "hints": [
+        "Some letters are far more common than others in English text."
+      ]
+    },
+    {
+      "key": "otp-challenge",
+      "title": "OTP Challenge: the mistake",
+      "prompt": "Solve the OTP Challenge. Which mistake in the use of the one-time pad makes the ciphertexts breakable?",
+      "check": {
+        "answer": [
+          "key reuse",
+          "reused key",
+          "same key",
+          "the same key",
+          "two-time pad",
+          "many-time pad",
+          "reusing the key"
+        ]
+      },
+      "hints": [
+        "Read the intercepted intelligence: what do all the ciphertexts have in common?"
+      ]
+    },
+    {
+      "key": "rsa-bad-primes",
+      "title": "RSA Challenge I: factoring close primes",
+      "prompt": "Solve RSA Challenge I (Bad Primes). Which factoring method is efficient when the two RSA primes are close to each other? (name)",
+      "check": {
+        "answer": [
+          "fermat",
+          "fermat factorization",
+          "fermat's factorization",
+          "fermat's factorization method",
+          "fermat factorisation"
+        ]
+      },
+      "hints": [
+        "If p and q are close, N is close to a perfect square."
+      ]
+    },
+    {
+      "key": "rsa-common-modulus",
+      "title": "RSA Challenge II: shared modulus",
+      "prompt": "Solve RSA Challenge II (Common Modulus). Which attack applies when the same message is encrypted under one modulus with two different public exponents? (name)",
+      "check": {
+        "answer": [
+          "common modulus",
+          "common modulus attack",
+          "rsa common modulus attack"
+        ]
+      },
+      "hints": [
+        "Two coprime exponents and the extended Euclidean algorithm are enough."
+      ]
+    },
+    {
+      "key": "rsa-low-exponent",
+      "title": "RSA Challenge III: broadcast with e = 3",
+      "prompt": "Solve RSA Challenge III (Low Encryption Exponent). The same message went to three recipients with e = 3: which theorem combines the three ciphertexts? (name)",
+      "check": {
+        "answer": [
+          "chinese remainder theorem",
+          "crt",
+          "the chinese remainder theorem"
+        ]
+      },
+      "hints": [
+        "This is Hastad's broadcast attack."
+      ]
+    },
+    {
+      "key": "blinding-signatures",
+      "title": "Forging Signatures: the property",
+      "prompt": "Solve the Forging Signatures challenge. Which property of textbook RSA lets a blinded message be signed and then unblinded? (name)",
+      "check": {
+        "answer": [
+          "multiplicative",
+          "multiplicativity",
+          "homomorphic",
+          "multiplicative homomorphism",
+          "homomorphism",
+          "malleability",
+          "malleable"
+        ]
+      },
+      "hints": [
+        "Think about what happens to signatures when you multiply messages together."
+      ]
+    },
+    {
+      "key": "rsa-low-private-exponent",
+      "title": "RSA Challenge IV: small private exponent",
+      "prompt": "Solve RSA Challenge IV (Small Private Key Exponents). Which attack recovers a too small private exponent from the public key alone? (name)",
+      "check": {
+        "answer": [
+          "wiener",
+          "wiener's attack",
+          "wiener attack",
+          "wieners attack",
+          "continued fractions",
+          "continued fraction"
+        ]
+      },
+      "hints": [
+        "It uses the continued fraction expansion of e/N."
+      ]
+    }
+  ]
+}

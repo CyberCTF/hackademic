@@ -26,6 +26,12 @@ login page; the admin adds them to a class. The same spec runs as Docker on a lo
 [project README](https://github.com/Hackademic/hackademic#readme) and the description of each
 challenge.
 
+## Objectives
+
+Hackademic tracks completion inside the app and has no flags or secrets to plant: every
+challenge is judged in the page (or in the browser) and none gives a read of the server. The
+lab's objectives are short questions, one per challenge, answered from what solving it shows.
+
 Upstream version and commit: [UPSTREAM.md](UPSTREAM.md).
 
 ## Licence
